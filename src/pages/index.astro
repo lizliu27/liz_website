@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { getCollection } from 'astro:content';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import FeaturedProjects from '../components/FeaturedProjects.astro';
 const allPosts = await getCollection('blog');
 const latestPosts = allPosts
   .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
@@ -66,6 +67,8 @@ const latestPosts = allPosts
         </p>
       </div>
     </section>
+
+    <FeaturedProjects />
 
     <!-- Latest Writings -->
     <section class="max-w-4xl mx-auto px-6" style="padding-top: 4rem; padding-bottom: 4rem;">

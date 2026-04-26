@@ -1,0 +1,68 @@
+---
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+
+const projects = [
+  {
+    title: 'Production RAG System',
+    company: 'Iress',
+    description:
+      'Designed and deployed multi-stage RAG with chunking strategies, hybrid retrieval, and reranking to reduce hallucination in production.',
+    tags: ['RAG', 'Python', 'Hybrid Retrieval', 'Reranking'],
+  },
+  {
+    title: 'GenAI Evaluation Harness',
+    company: 'Iress',
+    description:
+      'Built an automated eval pipeline covering test-case generation, multi-dimensional scoring, regression detection, and human-in-the-loop feedback.',
+    tags: ['Evaluation', 'DeepEval', 'HITL'],
+  },
+  {
+    title: 'LLM Meeting Summarizer',
+    company: 'Iress',
+    description:
+      'LLM-powered system that extracts key client information from meetings and generates structured summaries, cutting manual post-meeting workload.',
+    tags: ['LLM', 'Automation', 'Business Impact'],
+  },
+  {
+    title: 'Customer Churn Propensity Model',
+    company: 'Commonwealth Bank',
+    description:
+      'Led full model lifecycle — training, deployment, monitoring — for churn prediction; converted batch model to real-time inference service.',
+    tags: ['PyTorch', 'MLOps', 'Real-time Inference'],
+  },
+  {
+    title: 'Advertising Experimentation',
+    company: 'ByteDance',
+    description:
+      'Used causal inference and A/B testing to measure the impact of product and algorithm changes on advertising revenue and user engagement.',
+    tags: ['Causal Inference', 'A/B Testing', 'Revenue Impact'],
+  },
+];
+---
+
+<section style="padding-top: 4rem; padding-bottom: 4rem; border-bottom: 1px solid #e5e7eb;">
+  <div class="max-w-5xl mx-auto px-6">
+    <p style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.15em; color: #9ca3af; margin-bottom: 2rem;">
+      FEATURED PROJECTS
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map(project => (
+        <Card class="hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <CardHeader>
+            <p style={{ fontSize: '0.75rem', color: '#9ca3af', margin: '0 0 0.25rem 0' }}>{project.company}</p>
+            <CardTitle style={{ fontSize: '1.05rem', lineHeight: '1.4' }}>{project.title}</CardTitle>
+          </CardHeader>
+          <CardContent class="space-y-4">
+            <p style={{ fontSize: '0.9rem', color: '#6b7280', lineHeight: '1.6' }}>{project.description}</p>
+            <div class="flex flex-wrap gap-2">
+              {project.tags.map(tag => (
+                <Badge variant="secondary" style={{ fontSize: '0.72rem' }}>{tag}</Badge>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  </div>
+</section>
