@@ -42,7 +42,7 @@ const projects = [
 ---
 
 <section style="padding-top: 4rem; padding-bottom: 4rem; border-bottom: 1px solid #e5e7eb;">
-  <div class="max-w-5xl mx-auto px-6">
+  <div class="max-w-4xl mx-auto px-6">
     <p style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.15em; color: #9ca3af; margin-bottom: 2rem;">
       FEATURED PROJECTS
     </p>
@@ -54,7 +54,7 @@ const projects = [
             <CardTitle style={{ fontSize: '1.05rem', lineHeight: '1.4' }}>{project.title}</CardTitle>
           </CardHeader>
           <CardContent class="space-y-4">
-            <p style={{ fontSize: '0.9rem', color: '#6b7280', lineHeight: '1.6' }}>{project.description}</p>
+            <p style={{ fontSize: '0.9rem', color: '#6b7280', lineHeight: '1.6', marginBottom: 0 }}>{project.description}</p>
             <div class="flex flex-wrap gap-2">
               {project.tags.map(tag => (
                 <Badge variant="secondary" style={{ fontSize: '0.72rem' }}>{tag}</Badge>
