@@ -26,24 +26,24 @@ const latestPosts = allPosts
         </h1>
 
         <p style="font-size: 1.5rem; margin-top: 1rem; color: #6b7280; font-weight: 400;">
-          ML Engineer. I build production AI systems.
+          Data Scientist.
         </p>
 
-        <p style="margin-top: 2rem; font-size: 1.1rem; max-width: 34rem; color: #9ca3af; line-height: 1.7;">
-          5+ years shipping ML and GenAI in production — RAG systems, agents, MLOps pipelines.
-          Currently at Iress, Singapore. Writing about AI that actually works.
+        <p style="margin-top: 2rem; font-size: 1.1rem; max-width: 38rem; color: #9ca3af; line-height: 1.7;">
+          I work at the intersection of GenAI applications, rigorous experimentation, and business impact — turning complex models and data into decisions that matter.
         </p>
 
-        <!-- Stats -->
-        <div class="flex gap-16" style="margin-top: 4rem;">
-          <div>
-            <div style="font-size: 3rem; font-weight: 600; color: black; line-height: 1;">5+</div>
-            <div style="font-size: 0.8rem; color: #9ca3af; margin-top: 0.25rem;">Years in ML / AI</div>
-          </div>
-          <div>
-            <div style="font-size: 3rem; font-weight: 600; color: black; line-height: 1;">2</div>
-            <div style="font-size: 0.8rem; color: #9ca3af; margin-top: 0.25rem;">Master's Degrees</div>
-          </div>
+        <p style="margin-top: 0.75rem; font-size: 0.95rem; color: #9ca3af;">
+          Currently at Iress, Singapore. Previously at Commonwealth Bank, ByteDance, and ING.
+        </p>
+
+        <!-- Tech strip -->
+        <div style="margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+          {['Python', 'SQL', 'RAG', 'LangGraph', 'PyTorch', 'GCP'].map(tech => (
+            <span style="font-size: 0.8rem; padding: 0.25rem 0.75rem; border: 1px solid #e5e7eb; border-radius: 9999px; color: #6b7280;">
+              {tech}
+            </span>
+          ))}
         </div>
 
         <!-- Buttons -->
