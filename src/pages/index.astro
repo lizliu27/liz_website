@@ -2,48 +2,91 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+const allPosts = await getCollection('blog');
+const latestPosts = allPosts
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .slice(0, 3);
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body style="background: white;">
+    <Header />
+
+    <!-- Hero -->
+    <section style="min-height: 100vh; display: flex; align-items: center; padding-top: 5rem; padding-bottom: 4rem; border-bottom: 1px solid #e5e7eb;">
+      <div class="max-w-4xl mx-auto px-6 w-full">
+        <h1 style="font-size: clamp(3.5rem, 10vw, 6.5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: black; margin: 0;">
+          Liz Liu
+        </h1>
+
+        <p style="font-size: 1.5rem; margin-top: 1rem; color: #6b7280; font-weight: 400;">
+          ML Engineer. I build production AI systems.
+        </p>
+
+        <p style="margin-top: 2rem; font-size: 1.1rem; max-width: 34rem; color: #9ca3af; line-height: 1.7;">
+          5+ years shipping ML and GenAI in production — RAG systems, agents, MLOps pipelines.
+          Currently at Iress, Singapore. Writing about AI that actually works.
+        </p>
+
+        <!-- Stats -->
+        <div class="flex gap-16" style="margin-top: 4rem;">
+          <div>
+            <div style="font-size: 3rem; font-weight: 600; color: black; line-height: 1;">5+</div>
+            <div style="font-size: 0.8rem; color: #9ca3af; margin-top: 0.25rem;">Years in ML / AI</div>
+          </div>
+          <div>
+            <div style="font-size: 3rem; font-weight: 600; color: black; line-height: 1;">2</div>
+            <div style="font-size: 0.8rem; color: #9ca3af; margin-top: 0.25rem;">Master's Degrees</div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex gap-4 flex-wrap" style="margin-top: 3rem;">
+          <a href="/blog" style="background: black; color: white; padding: 1rem 2rem; border-radius: 0.75rem; font-weight: 500; text-decoration: none; font-size: 1rem;">
+            View Writing
+          </a>
+          <a href="mailto:lizliu627@gmail.com" style="border: 1px solid black; color: black; padding: 1rem 2rem; border-radius: 0.75rem; font-weight: 500; text-decoration: none; font-size: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+            Get in Touch →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest Writings -->
+    <section class="max-w-4xl mx-auto px-6" style="padding-top: 4rem; padding-bottom: 4rem;">
+      <p style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.15em; color: #9ca3af; margin-bottom: 2rem;">
+        LATEST WRITINGS
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 3rem;">
+        {latestPosts.map(post => (
+          <article>
+            <a href={`/blog/${post.slug}`} style="display: block; text-decoration: none; color: inherit;" class="group">
+              <h2 class="group-hover:underline" style="font-size: 1.75rem; font-weight: 600; color: black; margin: 0; line-height: 1.3;">
+                {post.data.title}
+              </h2>
+              <p style="margin-top: 0.75rem; color: #6b7280; font-size: 1rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0;">
+                {post.data.description}
+              </p>
+              <time style="font-size: 0.85rem; color: #9ca3af; margin-top: 0.75rem; display: block;">
+                {new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).format(new Date(post.data.pubDate))}
+              </time>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <a href="/blog" style="margin-top: 2.5rem; display: inline-flex; align-items: center; gap: 0.5rem; color: black; text-decoration: none; font-weight: 500; font-size: 1rem;">
+        View All Posts →
+      </a>
+    </section>
+
+    <Footer />
+  </body>
 </html>
