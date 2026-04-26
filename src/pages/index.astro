@@ -80,7 +80,7 @@ const latestPosts = allPosts
       <div style="display: flex; flex-direction: column; gap: 3rem;">
         {latestPosts.map(post => (
           <article>
-            <a href={`/blog/${post.slug}`} style="display: block; text-decoration: none; color: inherit;" class="group">
+            <a href={`/blog/${post.id}/`} style="display: block; text-decoration: none; color: inherit;" class="group">
               <h2 class="group-hover:underline" style="font-size: 1.75rem; font-weight: 600; color: black; margin: 0; line-height: 1.3;">
                 {post.data.title}
               </h2>
