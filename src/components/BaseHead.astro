@@ -56,3 +56,25 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "name": "Liz Liu",
+      "url": "https://liz-website-rouge.vercel.app",
+      "jobTitle": "Data Scientist",
+      "description": "Data Scientist specializing in GenAI applications, experimentation, and translating complex models into business impact.",
+      "sameAs": [
+        "https://www.linkedin.com/in/liz-liu-a0b149167/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "name": "Liz Liu",
+      "url": "https://liz-website-rouge.vercel.app"
+    }
+  ]
+})} />

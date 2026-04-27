@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://liz-website-rouge.vercel.app/sitemap-index.xml
