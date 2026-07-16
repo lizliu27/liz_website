@@ -1,27 +1,31 @@
 ---
 ---
 
-<section style="padding-top: 4rem; padding-bottom: 4rem;">
-  <div class="max-w-4xl mx-auto px-6">
-    <p style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.15em; color: #9ca3af; margin-bottom: 2rem;">
-      LET'S CONNECT
-    </p>
-    <div style="display: flex; gap: 2.5rem; flex-wrap: wrap; align-items: center;">
-      <a
-        href="mailto:lizliu627@gmail.com"
-        style="color: black; text-decoration: none; font-weight: 500; font-size: 1rem;"
-      >
-        lizliu627@gmail.com
-      </a>
-      <a
-        href="https://www.linkedin.com/in/liz-liu-a0b149167/"
-        target="_blank"
-        rel="noopener noreferrer"
-        style="color: black; text-decoration: none; font-weight: 500; font-size: 1rem;"
-      >
-        LinkedIn →
-      </a>
-      <span style="color: #d1d5db; font-size: 1rem;">GitHub (coming soon)</span>
+<section class="contact-section">
+  <div class="contact-inner">
+    <p class="contact-label">LET’S CONNECT</p>
+    <div>
+      <h2>Have an interesting problem?</h2>
+      <p>I’m always happy to compare notes on GenAI systems, evaluation, experimentation, and the work of turning research into something useful.</p>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/liz-liu-a0b149167/" target="_blank" rel="noopener noreferrer" class="contact-primary">Connect on LinkedIn <span aria-hidden="true">↗</span></a>
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .contact-section { padding: clamp(4.5rem, 9vw, 7.5rem) 0; background: #111; color: white; }
+  .contact-inner { width: min(100% - 3rem, 64rem); margin: 0 auto; display: grid; grid-template-columns: 11rem minmax(0, 38rem); gap: 3rem; }
+  .contact-label { margin: 0; color: #71717a; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 650; letter-spacing: 0.14em; }
+  h2 { max-width: 18ch; margin: 0; color: white; font-family: var(--font-sans); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 600; letter-spacing: -0.045em; line-height: 1.05; }
+  p { max-width: 54ch; margin: 1.25rem 0 0; color: #a1a1aa; font-size: 1rem; line-height: 1.7; }
+  .contact-links { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 1.5rem; }
+  .contact-links a { color: #d4d4d8; text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: color 140ms ease, transform 140ms var(--ease-out); }
+  .contact-links a:active { transform: scale(0.97); }
+  .contact-links .contact-primary { color: white; }
+  @media (hover: hover) and (pointer: fine) { .contact-links a:hover { color: white; } }
+  @media (max-width: 760px) {
+    .contact-inner { width: min(100% - 2rem, 64rem); grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+</style>

@@ -8,6 +8,7 @@ import FeaturedProjects from '../components/FeaturedProjects.astro';
 import ContactStrip from '../components/ContactStrip.astro';
 const allPosts = await getCollection('blog');
 const latestPosts = allPosts
+	.filter((post) => post.data.lang !== 'zh')
   .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
   .slice(0, 3);
 ---
@@ -17,91 +18,104 @@ const latestPosts = allPosts
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
-  <body style="background: white;">
+  <body>
     <Header />
 
-    <!-- Hero -->
-    <section style="min-height: 100vh; display: flex; align-items: center; padding-top: 5rem; padding-bottom: 4rem; border-bottom: 1px solid #e5e7eb;">
-      <div class="max-w-4xl mx-auto px-6 w-full">
-        <h1 style="font-size: clamp(3.5rem, 10vw, 6.5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: black; margin: 0;">
-          Liz Liu
-        </h1>
+    <main>
+      <section class="home-hero">
+        <div class="home-shell hero-grid">
+          <div>
+            <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Liz Liu · Data Scientist</p>
+            <h1>Building AI systems that hold up in the real world.</h1>
+            <p class="hero-copy">
+              I work across GenAI, experimentation, and product decisions—turning complex models into systems people can trust and outcomes businesses can measure.
+            </p>
+            <div class="hero-actions">
+              <a href="/blog" class="button button-primary">Read my writing <span aria-hidden="true">↗</span></a>
+              <a href="https://www.linkedin.com/in/liz-liu-a0b149167/" target="_blank" rel="noopener noreferrer" class="button button-secondary">Connect on LinkedIn</a>
+            </div>
+          </div>
+          <aside class="hero-notes" aria-label="Current role and experience">
+            <div class="note-row"><span>Now</span><strong>Iress · Singapore</strong></div>
+            <div class="note-row"><span>Previously</span><strong>Commonwealth Bank · ByteDance · ING</strong></div>
+            <div class="note-row"><span>Focus</span><strong>GenAI systems · Evaluation · Experimentation</strong></div>
+          </aside>
+        </div>
+        <div class="home-shell skill-line" aria-label="Tools and methods">
+          {['Python', 'SQL', 'RAG', 'LangGraph', 'PyTorch', 'GCP'].map(tech => <span>{tech}</span>)}
+        </div>
+      </section>
 
-        <p style="font-size: 1.5rem; margin-top: 1rem; color: #6b7280; font-weight: 400;">
-          Data Scientist.
-        </p>
+      <FeaturedProjects />
 
-        <p style="margin-top: 2rem; font-size: 1.1rem; max-width: 38rem; color: #9ca3af; line-height: 1.7;">
-          I work at the intersection of GenAI applications, rigorous experimentation, and business impact — turning complex models and data into decisions that matter.
-        </p>
-
-        <p style="margin-top: 0.75rem; font-size: 0.95rem; color: #9ca3af;">
-          Currently at Iress, Singapore. Previously at Commonwealth Bank, ByteDance, and ING.
-        </p>
-
-        <!-- Tech strip -->
-        <div style="margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
-          {['Python', 'SQL', 'RAG', 'LangGraph', 'PyTorch', 'GCP'].map(tech => (
-            <span style="font-size: 0.8rem; padding: 0.25rem 0.75rem; border: 1px solid #e5e7eb; border-radius: 9999px; color: #6b7280;">
-              {tech}
-            </span>
+      <section class="writing-section">
+        <div class="home-shell section-heading-row">
+          <p class="section-label">LATEST WRITING</p>
+          <a href="/blog" class="text-link">View all <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="home-shell writing-list">
+          {latestPosts.map(post => (
+            <article class="writing-row">
+              <a href={`/blog/${post.id}/`}>
+                <div>
+                  <time>{new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(post.data.pubDate))}</time>
+                  <h2>{post.data.title}</h2>
+                  <p>{post.data.description}</p>
+                </div>
+                <span class="row-arrow" aria-hidden="true">↗</span>
+              </a>
+            </article>
           ))}
         </div>
+      </section>
 
-        <!-- Buttons -->
-        <div class="flex gap-4 flex-wrap" style="margin-top: 3rem;">
-          <a href="/blog" style="background: black; color: white; padding: 1rem 2rem; border-radius: 0.75rem; font-weight: 500; text-decoration: none; font-size: 1rem;">
-            View Writing
-          </a>
-          <a href="mailto:lizliu627@gmail.com" style="border: 1px solid black; color: black; padding: 1rem 2rem; border-radius: 0.75rem; font-weight: 500; text-decoration: none; font-size: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-            Get in Touch →
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Philosophy -->
-    <section style="border-bottom: 1px solid #e5e7eb; padding-top: 4rem; padding-bottom: 4rem;">
-      <div class="max-w-4xl mx-auto px-6">
-        <p style="font-size: 1.2rem; line-height: 1.9; color: #374151; max-width: 38rem;">
-          Most AI projects fail not because of the models, but because nobody asked the right question. I care about the full loop — understanding the problem, running the experiment rigorously, and making sure the result actually lands with the people who need to act on it.
-        </p>
-      </div>
-    </section>
-
-    <FeaturedProjects />
-
-    <!-- Latest Writings -->
-    <section class="max-w-4xl mx-auto px-6" style="padding-top: 4rem; padding-bottom: 4rem; border-bottom: 1px solid #e5e7eb;">
-      <h2 style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.15em; color: #9ca3af; margin-bottom: 2rem; font-weight: 400;">
-        LATEST WRITINGS
-      </h2>
-
-      <div style="display: flex; flex-direction: column; gap: 3rem;">
-        {latestPosts.map(post => (
-          <article>
-            <a href={`/blog/${post.id}/`} style="display: block; text-decoration: none; color: inherit;" class="group">
-              <h2 class="group-hover:underline" style="font-size: 1.75rem; font-weight: 600; color: black; margin: 0; line-height: 1.3;">
-                {post.data.title}
-              </h2>
-              <p style="margin-top: 0.75rem; color: #6b7280; font-size: 1rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0;">
-                {post.data.description}
-              </p>
-              <time style="font-size: 0.85rem; color: #9ca3af; margin-top: 0.75rem; display: block;">
-                {new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).format(new Date(post.data.pubDate))}
-              </time>
-            </a>
-          </article>
-        ))}
-      </div>
-
-      <a href="/blog" style="margin-top: 2.5rem; display: inline-flex; align-items: center; gap: 0.5rem; color: black; text-decoration: none; font-weight: 500; font-size: 1rem;">
-        View All Posts →
-      </a>
-    </section>
-
-    <ContactStrip />
+      <ContactStrip />
+    </main>
 
     <Footer />
   </body>
 </html>
+
+<style>
+  .home-shell { width: min(100% - 3rem, 64rem); margin-inline: auto; }
+  .home-hero { padding: clamp(5rem, 11vw, 8.5rem) 0 2rem; border-bottom: 1px solid var(--hairline); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(16rem, 0.7fr); gap: clamp(3rem, 8vw, 7rem); align-items: end; }
+  .eyebrow, .section-label { margin: 0; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 650; letter-spacing: 0.14em; text-transform: uppercase; color: #71717a; }
+  .eyebrow { display: flex; align-items: center; gap: 0.6rem; }
+  .status-dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 4px #f0fdf4; }
+  .home-hero h1 { max-width: 13ch; margin: 1.4rem 0 0; font-family: var(--font-sans); font-size: clamp(3.25rem, 7.6vw, 6.25rem); font-weight: 620; letter-spacing: -0.065em; line-height: 0.98; text-wrap: balance; }
+  .hero-copy { max-width: 36rem; margin: 2rem 0 0; color: #52525b; font-size: clamp(1.05rem, 1.8vw, 1.22rem); line-height: 1.65; }
+  .hero-actions { margin-top: 2.25rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .button { min-height: 3rem; padding: 0 1.15rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: 1px solid #111; border-radius: 0.7rem; text-decoration: none; font-size: 0.9rem; font-weight: 650; transition: transform 140ms var(--ease-out), background-color 140ms ease, color 140ms ease; }
+  .button:active { transform: scale(0.97); }
+  .button-primary { background: #111; color: white; }
+  .button-secondary { background: white; color: #111; }
+  .hero-notes { border-top: 1px solid #d6d3d1; }
+  .note-row { padding: 1rem 0; display: grid; gap: 0.2rem; border-bottom: 1px solid var(--hairline); }
+  .note-row span { color: #a1a1aa; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .note-row strong { color: #3f3f46; font-size: 0.86rem; line-height: 1.5; font-weight: 550; }
+  .skill-line { margin-top: clamp(4rem, 8vw, 6rem); padding-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.65rem 1.35rem; border-top: 1px solid var(--hairline); color: #a1a1aa; font-family: var(--font-sans); font-size: 0.75rem; }
+  .writing-section { padding: clamp(4.5rem, 8vw, 7rem) 0; border-bottom: 1px solid var(--hairline); }
+  .section-heading-row { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; }
+  .text-link { color: #52525b; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: color 140ms ease; }
+  .writing-list { border-top: 1px solid var(--hairline); }
+  .writing-row { border-bottom: 1px solid var(--hairline); }
+  .writing-row > a { padding: 1.75rem 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: center; color: inherit; text-decoration: none; }
+  .writing-row time { display: block; margin-bottom: 0.6rem; color: #a1a1aa; font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.04em; }
+  .writing-row h2 { max-width: 28ch; margin: 0; font-family: var(--font-sans); font-size: clamp(1.3rem, 2.2vw, 1.7rem); line-height: 1.25; letter-spacing: -0.025em; }
+  .writing-row p { max-width: 55ch; margin: 0.65rem 0 0; color: #71717a; line-height: 1.6; }
+  .row-arrow { color: #a1a1aa; font-size: 1.1rem; transition: transform 180ms var(--ease-out), color 140ms ease; }
+  @media (hover: hover) and (pointer: fine) {
+    .button-primary:hover { background: #27272a; }
+    .button-secondary:hover { background: #fafaf9; }
+    .text-link:hover { color: #111; }
+    .writing-row a:hover .row-arrow { color: #111; transform: translate(2px, -2px); }
+  }
+  @media (max-width: 760px) {
+    .home-shell { width: min(100% - 2rem, 64rem); }
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-grid { gap: 3.5rem; }
+    .home-hero h1 { font-size: clamp(3rem, 15vw, 5rem); }
+    .writing-row > a { gap: 1rem; }
+  }
+</style>

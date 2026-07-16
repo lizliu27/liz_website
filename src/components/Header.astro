@@ -1,18 +1,105 @@
 ---
+const pathname = Astro.url.pathname;
+const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
 ---
 
-<header style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: white; border-bottom: 1px solid #f3f4f6;">
-  <nav style="max-width: 56rem; margin: 0 auto; padding: 0 1.5rem; height: 4rem; display: flex; align-items: center; justify-content: space-between;">
-    <a href="/" style="font-weight: 600; color: black; text-decoration: none; font-size: 1rem;">Liz Liu</a>
-    <div style="display: flex; align-items: center; gap: 1.5rem;">
-      <a href="/about" style="color: #6b7280; text-decoration: none; font-size: 0.9rem; transition: color 0.15s;" onmouseover="this.style.color='black'" onmouseout="this.style.color='#6b7280'">About</a>
-      <a href="/blog" style="color: #6b7280; text-decoration: none; font-size: 0.9rem;" onmouseover="this.style.color='black'" onmouseout="this.style.color='#6b7280'">Blog</a>
-      <a href="mailto:lizliu627@gmail.com" style="background: black; color: white; padding: 0.5rem 1.25rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 500; text-decoration: none;">
-        Get in Touch
-      </a>
+<header class="site-header">
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a href="/" class="wordmark" aria-label="Liz Liu, home">
+      <span class="wordmark-dot" aria-hidden="true"></span>
+      Liz Liu
+    </a>
+    <div class="nav-links">
+      <a href="/about" class="nav-link" aria-current={isActive('/about') ? 'page' : undefined}>About</a>
+      <a href="/blog" class="nav-link" aria-current={isActive('/blog') ? 'page' : undefined}>Writing</a>
+      <a href="https://www.linkedin.com/in/liz-liu-a0b149167/" target="_blank" rel="noopener noreferrer" class="nav-cta">LinkedIn ↗</a>
     </div>
   </nav>
 </header>
+<div class="header-spacer" aria-hidden="true"></div>
 
-<!-- spacer for fixed header -->
-<div style="height: 4rem;"></div>
+<style>
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    border-bottom: 1px solid rgba(231, 229, 228, 0.8);
+    background: rgba(255, 255, 255, 0.86);
+    backdrop-filter: blur(16px);
+  }
+  .site-nav {
+    width: min(100% - 3rem, 64rem);
+    height: 4.25rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .wordmark,
+  .nav-link,
+  .nav-cta {
+    text-decoration: none;
+  }
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #111;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+  }
+  .wordmark-dot {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 50%;
+    background: #2563eb;
+    box-shadow: 0 0 0 4px #eff6ff;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .nav-link {
+    min-height: 2.75rem;
+    padding: 0 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0.6rem;
+    color: #71717a;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 140ms ease, background-color 140ms ease;
+  }
+  .nav-link[aria-current='page'] {
+    color: #111;
+    background: #f5f5f4;
+  }
+  .nav-cta {
+    min-height: 2.65rem;
+    margin-left: 0.45rem;
+    padding: 0 1rem;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0.65rem;
+    background: #111;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: transform 140ms var(--ease-out), background-color 140ms ease;
+  }
+  .nav-cta:active { transform: scale(0.97); }
+  .header-spacer { height: 4.25rem; }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav-link:hover { color: #111; background: #fafaf9; }
+    .nav-cta:hover { background: #27272a; }
+  }
+  @media (max-width: 560px) {
+    .site-nav { width: min(100% - 2rem, 64rem); }
+    .nav-link { padding-inline: 0.55rem; }
+    .nav-cta { display: none; }
+  }
+</style>
