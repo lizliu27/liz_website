@@ -1,0 +1,30 @@
+---
+import HermesPage from '../../layouts/HermesPage.astro';
+---
+
+<HermesPage
+  title="Hermes Privacy Policy"
+  heading="Privacy policy"
+  description="How Hermes accesses and uses Gmail data locally for its owner's personal use, without sending email content to third-party AI services."
+  updated
+>
+  <p>Hermes is a personal, locally hosted AI system operated by Liz Liu. It is used only by its owner and is not available to the public.</p>
+
+  <h2>Gmail access and use</h2>
+  <p>With the owner's permission through Google OAuth, Hermes retrieves subscription-related emails from the owner's Gmail account, including message content and metadata such as sender, subject, and date. This information is used only to organize emails and produce summaries and analysis for the owner's personal use.</p>
+
+  <h2>Local storage and sharing</h2>
+  <p>Emails and summaries saved by Hermes are stored in the owner's local environment. Saved OAuth credentials are also kept locally. These records are retained for personal use until the owner deletes them.</p>
+  <p>Email content and summaries are not sent to third-party AI services or shared with other people. Gmail data is not sold, used for advertising, or used to train general-purpose AI models.</p>
+  <p>Hermes follows the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including its Limited Use requirements.</p>
+
+  <h2>Revoking access and deleting data</h2>
+  <p>The owner can stop using Hermes and revoke its access through <a href="https://myaccount.google.com/connections">Google Account connections</a> at any time. Revoking access prevents future retrieval but does not delete data already saved locally.</p>
+  <p>The owner can manually delete local email copies, summaries, and saved credentials, along with any backups they maintain. Deleting these local records does not delete the original emails in Gmail.</p>
+
+  <h2>This public website</h2>
+  <p>These pages provide information about Hermes. The website does not receive Gmail data or OAuth credentials and does not connect to the local Hermes system. Vercel hosts the website and may process standard website access logs, such as IP addresses and request timestamps, as described in <a href="https://vercel.com/legal/privacy-policy">Vercel's Privacy Policy</a>.</p>
+
+  <h2 id="contact">Contact</h2>
+  <p>For questions about Hermes or this policy, contact Liz Liu at <a href="mailto:lizliu627@gmail.com">lizliu627@gmail.com</a>.</p>
+</HermesPage>

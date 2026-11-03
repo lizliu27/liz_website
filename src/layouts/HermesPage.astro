@@ -1,0 +1,124 @@
+---
+import '../styles/global.css';
+import { Font } from 'astro:assets';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+  updated?: boolean;
+}
+
+const { title, description, heading, updated = false } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, 'https://lizliuforge.com');
+const links = [
+  { href: '/hermes', label: 'Overview' },
+  { href: '/hermes/privacy', label: 'Privacy policy' },
+  { href: '/hermes/terms', label: 'Terms of service' },
+];
+const pathname = Astro.url.pathname.replace(/\/$/, '');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} | Liz Liu</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Liz Liu" />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${title} | Liz Liu`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <Font cssVariable="--font-atkinson" preload />
+  </head>
+  <body>
+    <a class="skip-link" href="#hermes-content">Skip to content</a>
+    <Header />
+    <main id="hermes-content" tabindex="-1">
+      <p class="eyebrow">Hermes · A personal AI system</p>
+      <h1>{heading}</h1>
+      {updated && <p class="updated">Last updated: <time datetime="2026-11-03">November 3, 2026</time></p>}
+      <nav class="hermes-nav" aria-label="Hermes navigation">
+        {links.map(({ href, label }) => (
+          <a href={href} aria-current={pathname === href ? 'page' : undefined}>{label}</a>
+        ))}
+      </nav>
+      <div class="hermes-copy"><slot /></div>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  main {
+    box-sizing: border-box;
+    width: min(100%, 44rem);
+    min-height: calc(100vh - 12rem);
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem;
+    outline: none;
+  }
+  .eyebrow {
+    margin: 0 0 1rem;
+    color: #6b7280;
+    font-size: 0.85rem;
+  }
+  h1 {
+    margin-bottom: 1rem;
+    color: #111;
+    font-size: clamp(2rem, 6vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  .updated { margin: 0; color: #6b7280; font-size: 0.9rem; }
+  .hermes-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.5rem;
+    margin: 1.75rem 0 2.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .hermes-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    color: #6b7280;
+    font-size: 0.95rem;
+    text-underline-offset: 0.25em;
+  }
+  .hermes-nav a[aria-current='page'] { color: #111; font-weight: 700; }
+  .hermes-copy { color: #374151; font-size: 1.1rem; line-height: 1.8; }
+  .hermes-copy :global(h2) {
+    margin: 2.25rem 0 0.75rem;
+    color: #111;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  .hermes-copy :global(p) { margin: 0 0 1.4rem; }
+  .hermes-copy :global(a) { color: #111; text-decoration: underline; text-underline-offset: 0.2em; }
+  .hermes-copy :global(ul) { padding-left: 1.3rem; margin: 0 0 1.4rem; list-style: disc; }
+  .hermes-copy :global(li) { margin-bottom: 0.5rem; }
+  .skip-link {
+    position: fixed;
+    top: -5rem;
+    left: 1rem;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: #111;
+    color: #fff;
+  }
+  .skip-link:focus { top: 0.5rem; }
+  @media (max-width: 560px) {
+    main { padding: 3rem 1.25rem; }
+    .hermes-nav { gap: 0.25rem 1rem; }
+  }
+</style>
